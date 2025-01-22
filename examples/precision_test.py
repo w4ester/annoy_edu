@@ -1,6 +1,7 @@
 from __future__ import print_function
-import random, time
+import time
 from annoy import AnnoyIndex
+import secrets
 
 try:
     xrange
@@ -14,7 +15,7 @@ t = AnnoyIndex(f, 'angular')
 for i in xrange(n):
     v = []
     for z in xrange(f):
-        v.append(random.gauss(0, 1))
+        v.append(secrets.SystemRandom().gauss(0, 1))
     t.add_item(i, v)
 
 t.build(2 * f)
@@ -27,7 +28,7 @@ prec_n = 1000
 time_sum = {}
 
 for i in xrange(prec_n):
-    j = random.randrange(0, n)
+    j = secrets.SystemRandom().randrange(0, n)
         
     closest = set(t.get_nns_by_item(j, k, n))
     for limit in limits:
